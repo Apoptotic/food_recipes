@@ -1,14 +1,86 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { createGlobalStyle } from "styled-components";
+import { StylesProvider } from "@material-ui/core/styles";
 import { BrowserRouter, Route } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
+const GlobalStyle = createGlobalStyle`
+  /* Box sizing rules */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  
+  /* Remove default padding */
+  ul[class],
+  ol[class] {
+    padding: 0;
+  }
+  
+  /* Remove default margin */
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  ul[class],
+  ol[class],
+  li,
+  figure,
+  figcaption,
+  blockquote,
+  dl,
+  dd {
+    margin: 0;
+  }
+  
+  /* Set core body defaults */
+  body {
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+  }
+  
+  /* Remove list styles on ul, ol elements with a class attribute */
+  ul[class],
+  ol[class] {
+    list-style: none;
+  }
+  
+  /* A elements that don't have a class get default styles */
+  a:not([class]) {
+    text-decoration-skip-ink: auto;
+  }
+  
+  /* Make images easier to work with */
+  img {
+    max-width: 100%;
+    display: block;
+  }
+  
+  /* Inherit fonts for inputs and buttons */
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+`;
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Route render={routeProps => <App {...routeProps} />} />
+      <GlobalStyle />
+      <StylesProvider injectFirst>
+        <Route render={routeProps => <App {...routeProps} />} />
+      </StylesProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
