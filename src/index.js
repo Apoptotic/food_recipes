@@ -1,7 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { createGlobalStyle } from "styled-components";
-import { StylesProvider } from "@material-ui/core/styles";
+import {
+  StylesProvider,
+  MuiThemeProvider,
+  createMuiTheme
+} from "@material-ui/core/styles";
 import { BrowserRouter, Route } from "react-router-dom";
 import "./index.css";
 import App from "./App";
@@ -42,10 +46,6 @@ const GlobalStyle = createGlobalStyle`
   /* Set core body defaults */
   body {
     min-height: 100vh;
-    scroll-behavior: smooth;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
   }
   
   /* Remove list styles on ul, ol elements with a class attribute */
@@ -74,12 +74,22 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const THEME = createMuiTheme({
+  typography: {
+    fontFamily:
+      '"-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
+    fontSize: 14
+  }
+});
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <GlobalStyle />
       <StylesProvider injectFirst>
-        <Route render={routeProps => <App {...routeProps} />} />
+        <MuiThemeProvider theme={THEME}>
+          <Route render={routeProps => <App {...routeProps} />} />
+        </MuiThemeProvider>
       </StylesProvider>
     </BrowserRouter>
   </React.StrictMode>,
